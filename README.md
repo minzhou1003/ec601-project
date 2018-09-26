@@ -1,6 +1,7 @@
 # [RSNA Pneumonia Detection Challenge](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge)
 
-Author: [Min Zhou](minzhou@bu.edu), [Andrew Stoycos](astoycos@bu.edu)
+Author: 
+Min Zhou (minzhou@bu.edu), Andrew Stoycos (astoycos@bu.edu)
 
 # Product statement:
 
