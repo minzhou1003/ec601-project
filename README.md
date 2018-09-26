@@ -3,6 +3,8 @@
 Author: 
 Min Zhou (minzhou@bu.edu), Andrew Stoycos (astoycos@bu.edu)
 
+[Trello](https://trello.com/b/tm5CsmTN/sprint-1) 
+
 # Product statement:
 
 * Doctors, patients and medical professionals, need a product to help 
