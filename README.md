@@ -19,7 +19,7 @@ them to improve the efficiency and reach of diagnostic services.
 # MVP:
 
 <ul>
-  <li>- [ ] Medical image analysis and processing.</li>
+  <li>- [x] Medical image analysis and processing.</li>
   <li>- [ ] A machine learning model that can predict pneumonia and return the result.
     <ul>
     <li>Pneumonia Positive</li>
@@ -34,5 +34,5 @@ them to improve the efficiency and reach of diagnostic services.
 # Sprints:
 
 - [x] Sprint 1 (09/26/2018) 
-- [X] Sprint 2 (10/17/2018)
+- [x] Sprint 2 (10/17/2018)
 - [ ] Sprint 3
