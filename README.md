@@ -34,5 +34,5 @@ them to improve the efficiency and reach of diagnostic services.
 # Sprints:
 
 - [x] Sprint 1 (09/26/2018) 
-- [ ] Sprint 2
-
+- [X] Sprint 2 (10/17/2018)
+- [ ] Sprint 3
