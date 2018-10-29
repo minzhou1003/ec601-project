@@ -1,12 +1,25 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+<style>
+    img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+</style>
+
   <div class="jumbotron text-center">
-    <h1>Welcome To Pneumonia Detection App</h1>
-    <p class="lead">This application is built on the Python Flask framework and is the focus for the "Python Flask From Scratch" YouTube series</p>
+    <h2>Welcome To Pneumonia Detection App</h2>
+    <p class="lead">This is a Pneumonia Detection App designed for doctors, patients and medical professionals</p>
     <!-- {% if session.logged_in == NULL %}
       <a href="/register" class="btn btn-primary btn-lg">Register</a>
       <a href="/login" class="btn btn-success btn-lg">Login</a>
     {% endif %} -->
   </div>
+
+  <img src="https://www.mayoclinic.org/-/media/kcms/gbs/patient-consumer/images/2016/05/18/13/02/ww5r032t-8col-jpg.jpg" alt="System Diagram" width="400">
+
+  <img src="https://cdn-images-1.medium.com/max/1600/1*6yi76fGd8LAKiQ2viP2FBQ.jpeg" width="650"> 
 {% endblock %}
