@@ -35,6 +35,9 @@ them to improve the efficiency and reach of diagnostic services.
   <li>- [x] A website/app to make the software accessible</li>
 </ul>
 
+# System Diagram
+![system_diagram](app/static/system_diagram.jpg)
+
 # Sprints:
 
 - [x] Sprint 1 (09/26/2018) 
