@@ -32,7 +32,7 @@ them to improve the efficiency and reach of diagnostic services.
       <ul>Non-Normal Negative(other disease)</ul>
     </ul>
   </li>
-  <li>- [ ] A website/app to make the software accessible</li>
+  <li>- [x] A website/app to make the software accessible</li>
 </ul>
 
 # Sprints:
