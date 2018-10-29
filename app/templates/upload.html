@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<style>
+        img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+</style>
+
+<div class="text-center">
+    <h1>Upload Chest X-Rays DICOM images</h1>
+    <form method=post enctype=multipart/form-data>
+        <input type=file name=file>
+        <input type=submit value=Upload>
+    </form>
+</div>
+
+
+<div class="text-center">
+
+    {% if invalidImage==3 %}
+    <div class="text-center" style="margin-top:18px;">
+            Please upload your image!
+        </div>
+    {% elif invalidImage==1 %}
+        <div class="alert alert-danger" style="margin-top:18px;">
+            <strong>Error</strong> The file is invalid!
+        </div>
+    {% else%}
+        <div class="alert alert-success" style="margin-top:18px;">
+            <strong>Success!</strong> Your image was upload successfully
+        </div>
+        <div class="jumbotron text-center">
+                <h2 class="text-center">Result</h2>
+                <img src="{{url_for('static', filename='result.jpg')}}" />
+               </div>
+    {% endif %}
+</div>
+
+{% endblock %}
