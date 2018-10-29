@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+"""app.py: build a web application for pneumonia detection model using flask."""
+
+__author__      = "minzhou"
+__copyright__   = "Copyright 2018, minzhou@bu.edu"
+
+
 import os
 from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
