@@ -1,6 +1,39 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <h1>About Us</h1>
-  <p>This is a </p>
+
+<style>
+    img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+
+a {
+    display: inline-block;
+    text-align: center; 
+    padding: 14px 25px;
+  
+}
+</style>
+ <div class="jumbotron text-center">
+    <h2 class="text-center">About Our Product</h2>
+    <ul>This is a Pneumonia Detection App designed for doctors, patients and medical professionals. </ul>
+    <ul>This is an AI (machine learning/deep learning) model which can automatically detect a signal of pneumonia in medical images.</ul>
+    <ul>Current pneumonia diagnosis must be completed by a medical professional following a chest X-Ray and physical exam</ul>
+    <ul>Our product will automate initial detection (imaging screening) of potential pneumonia cases and create bounding boxes around the areas of interest in order to prioritize and expedite their review.</ul>
+
+ </div>
+  
+ <div class="jumbotron text-center">
+  <h2 class="text-center">System Diagram</h2>
+  <img src="{{url_for('static', filename='system_diagram.jpg')}}" />
+ </div>
+<div class="jumbotron text-center">
+  <h3 class="text-center">See more about our project</h3>
+  <a href="https://github.com/minzhou1003/ec601-project">Github</a>
+  <a href="https://trello.com/b/tm5CsmTN/sprint-1">Trello</a>
+</div>
 {% endblock %}
