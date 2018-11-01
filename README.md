@@ -9,6 +9,11 @@ Min Zhou (minzhou@bu.edu), Andrew Stoycos (astoycos@bu.edu)
 
 [Trello](https://trello.com/b/tm5CsmTN/sprint-1) 
 
+# File Instruction:
+* `data-analysis-of-rsna-library.ipynb`  is the Jupyter Notebook for analyzing and processing our dataset.
+* `app` folder is the web application of our product.
+* `requirements.txt` is the necessary python libraries to run our code.
+
 # Product statement:
 
 * Doctors, patients and medical professionals, need a product to help 
@@ -36,6 +41,15 @@ them to improve the efficiency and reach of diagnostic services.
 
 # System Diagram
 ![system_diagram](app/static/system_diagram.jpg)
+
+# Machien Learning Model (Deep Learning)
+
+* ## YOLO v3 Model
+ This model is developed on a small dataset due to the restrict of memory and GPU. More data is adding.
+
+* ## Mask-RCNN model
+
+
 
 # Sprints:
 
