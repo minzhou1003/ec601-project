@@ -42,7 +42,7 @@ them to improve the efficiency and reach of diagnostic services.
 # System Diagram
 ![system_diagram](app/static/system_diagram.jpg)
 
-# Machien Learning Model (Deep Learning)
+# Machine Learning Model (Deep Learning)
 
 * ## YOLO v3 Model
  This model is developed on a small dataset due to the restrict of memory and GPU. More data is adding.
