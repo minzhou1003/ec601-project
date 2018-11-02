@@ -46,7 +46,6 @@ them to improve the efficiency and reach of diagnostic services.
 # Machine Learning Model (Deep Learning)
 
 * ## [YOLO v3 Model](https://github.com/minzhou1003/ec601-project/tree/master/yolo_model)
- This model is developed on a small dataset due to the restrict of memory and GPU. The complete model is still training...
 
 * ## Mask-RCNN model
 
