@@ -13,7 +13,7 @@ Min Zhou (minzhou@bu.edu), Andrew Stoycos (astoycos@bu.edu)
 * `data-analysis-of-rsna-library.ipynb`  is the Jupyter Notebook for analyzing and processing our dataset.
 * `app` folder is the web application of our product.
 * `yolo_model` folder contains some model config files and a Jupyter Notebook used to train the model.
-* `requirements.txt` is the necessary python libraries to run our code.
+* `requirements.txt` contains some necessary python libraries to run our code.
 
 # Product statement:
 
