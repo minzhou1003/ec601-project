@@ -2,3 +2,4 @@ flask
 numpy
 sklearn
 Flask-Uploads
+opencv-python
