@@ -12,6 +12,7 @@ Min Zhou (minzhou@bu.edu), Andrew Stoycos (astoycos@bu.edu)
 # File Instruction:
 * `data-analysis-of-rsna-library.ipynb`  is the Jupyter Notebook for analyzing and processing our dataset.
 * `app` folder is the web application of our product.
+* `yolo_model` folder contains some model config files and a Jupyter Notebook used to train the model.
 * `requirements.txt` is the necessary python libraries to run our code.
 
 # Product statement:
@@ -44,7 +45,7 @@ them to improve the efficiency and reach of diagnostic services.
 
 # Machine Learning Model (Deep Learning)
 
-* ## YOLO v3 Model
+* ## [YOLO v3 Model](https://github.com/minzhou1003/ec601-project/tree/master/yolo_model)
  This model is developed on a small dataset due to the restrict of memory and GPU. The complete model is still training...
 
 * ## Mask-RCNN model
@@ -56,3 +57,4 @@ them to improve the efficiency and reach of diagnostic services.
 - [x] Sprint 1 (09/26/2018) 
 - [x] Sprint 2 (10/17/2018)
 - [ ] Sprint 3
+
