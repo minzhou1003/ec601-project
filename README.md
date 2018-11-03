@@ -2,18 +2,19 @@
  
 Kaggle link: https://www.kaggle.com/c/rsna-pneumonia-detection-challenge
 
-# [RSNA Pneumonia Detection Challenge](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge)
-
 Author: 
 Min Zhou (minzhou@bu.edu), Andrew Stoycos (astoycos@bu.edu)
 
+Project progress:
 [Trello](https://trello.com/b/tm5CsmTN/sprint-1) 
+
 
 # File Instruction:
 * `data-analysis-of-rsna-library.ipynb`  is the Jupyter Notebook for analyzing and processing our dataset.
 * `app` folder is the web application of our product.
 * `yolo_model` folder contains some model config files and a Jupyter Notebook used to train the model.
-* `requirements.txt` is the necessary python libraries to run our code.
+* `requirements.txt` contains some necessary python libraries to run our code.
+
 
 # Product statement:
 
@@ -26,8 +27,8 @@ them to improve the efficiency and reach of diagnostic services.
 
 * Our product will automate initial detection (imaging screening) of potential pneumonia cases and create bounding boxes around the areas of interest in order to prioritize and expedite their review. 
 
-# MVP:
 
+# MVP:
 
  - [x] [Medical image analysis and processing](https://github.com/minzhou1003/ec601-project/blob/master/data-analysis-of-rsna-library.ipynb).</li>
  - [ ] A machine learning model that can predict pneumonia and return the result.
@@ -46,10 +47,8 @@ them to improve the efficiency and reach of diagnostic services.
 # Machine Learning Model (Deep Learning)
 
 * ## [YOLO v3 Model](https://github.com/minzhou1003/ec601-project/tree/master/yolo_model)
- This model is developed on a small dataset due to the restrict of memory and GPU. The complete model is still training...
 
 * ## Mask-RCNN model
-
 
 
 # Sprints:
