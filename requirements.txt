@@ -1,5 +1,8 @@
 flask
 numpy
+pandas
 sklearn
-Flask-Uploads
 opencv-python
+jupyter notebook
+matplotlib
+pydicom
