@@ -7,7 +7,7 @@ This is the web application develeped for our users using [Flask](http://flask.p
 cd app
 python app.py
 ```
-* Note: Please follow the first 3 step of [this](https://github.com/minzhou1003/ec601-project#to-test-the-data-anlysis-part) first.
+* Note: Please follow the first 3 steps of [this](https://github.com/minzhou1003/ec601-project#to-test-the-data-anlysis-part) first.
 
 # Demo photos of our app:
 ![home](demo/home.png)
