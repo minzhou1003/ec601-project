@@ -10,7 +10,7 @@ Project progress:
 
 
 # File Instruction:
-* `data-analysis-of-rsna-library.ipynb`  is the Jupyter Notebook for analyzing and processing our dataset.
+* `working`  is the folder including a Jupyter Notebook for analyzing and processing our dataset.
 * `app` folder is the web application of our product.
 * `yolo_model` folder contains some model config files and a Jupyter Notebook used to train the model.
 * `requirements.txt` contains some necessary python libraries to run our code.
@@ -81,7 +81,7 @@ pip install -r requirements.txt
 ```
 
 ### 4. Download the dataset
-Download the [dataset](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge/data) in the same directory of this project.
+Download the [dataset](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge/data) in the same directory of this project. You should get a folder called `input`.
 
 ### 5. Run the Jupyter Notebook
 Go to the working directory and open your jupyter notebook:
