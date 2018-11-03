@@ -57,3 +57,35 @@ them to improve the efficiency and reach of diagnostic services.
 - [x] Sprint 2 (10/17/2018)
 - [ ] Sprint 3
 
+# To test the data anlysis part
+
+## Installation:
+- python 3
+- [virtualenv](https://cloud.google.com/python/setup)
+
+### 1. Download this repository:
+```
+git clone https://github.com/minzhou1003/ec601-project.git
+```
+
+### 2. Set up and activate virtualenv inside that folder.
+```
+cd API-miniproject
+virtualenv --python python3 env
+source env/bin/activate
+```
+
+### 3. Install python libraries:
+```
+pip install -r requirements.txt
+```
+
+### 4. Download the dataset
+Download the [dataset](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge/data) in the same directory of this project.
+
+### 5. Run the Jupyter Notebook
+Go to the working directory and open your jupyter notebook:
+```
+cd working
+jupyter notebook
+```
