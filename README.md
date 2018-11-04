@@ -70,7 +70,7 @@ git clone https://github.com/minzhou1003/ec601-project.git
 
 ### 2. Set up and activate virtualenv inside that folder.
 ```
-cd API-miniproject
+cd ec601-project
 virtualenv --python python3 env
 source env/bin/activate
 ```
