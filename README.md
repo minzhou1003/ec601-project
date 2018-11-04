@@ -61,7 +61,9 @@ them to improve the efficiency and reach of diagnostic services.
 
 ## Installation:
 - python 3
+- Jupyter Notebook
 - [virtualenv](https://cloud.google.com/python/setup)
+* Note: All the code is tested on Linux 4.9.0-5-amd64 and NVIDIA Tesla K80 GPU. If you are trying to run it on Windows, you may need to use virtual machine.
 
 ### 1. Download this repository:
 ```
