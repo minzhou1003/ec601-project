@@ -14,7 +14,8 @@ Project progress:
 * `app` folder is the web application of our product.
 * `yolo_model` folder contains some model config files and a Jupyter Notebook used to train the model.
 * `requirements.txt` contains some necessary python libraries to run our code.
-
+* `MASKrcnn_model` contains the python code for Mask-RCNN model.
+* `Lung_Segmentation` contains python code for segmenting lungs before training the Mask-RCNN model. 
 
 # Product statement:
 
