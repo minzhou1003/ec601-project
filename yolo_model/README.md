@@ -5,7 +5,7 @@ This is the YOLO model developed on a small dataset. A complete model is still t
 # File Instruction:
 * `cfg` folder contains all the config files.
 * `demo_images` folder contains 6 groups of test image, label and prediction result for both positive and negative case.
-* `rsna_yolov3_100.weights` is the model weights after 100 iteration.
+* `metadata` folder contains training, test, validation text files for yolo model.
 * `yolo_model_900.ipynb` is the Jupyter Notebook for developing this model over 900 training iterations.
 
 # Test example
