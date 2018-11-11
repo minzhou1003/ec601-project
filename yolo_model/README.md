@@ -23,5 +23,5 @@ The ground truth image (left) and prediction (right) result:
 
 <img src="demo_images/neg_test420_label.jpg" width="350" height="350" title="Ground Truth" hspace="20"/> <img src="demo_images/predictions_neg_test420.jpg" width="350" height="350" title="Prediction" hspace="20"/> 
 
-As you can see, the result is not very good, but we are adding more data and training a more robust model.
+As you can see, the result getting better after training over 900 iteration using whole dataset, but we are still improving!
 
