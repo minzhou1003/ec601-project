@@ -2,6 +2,7 @@ flask
 numpy
 image
 pandas
+seaborn
 sklearn
 opencv-python
 jupyter notebook
