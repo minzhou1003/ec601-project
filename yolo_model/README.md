@@ -8,7 +8,11 @@ This is the YOLO model developed on a small dataset. A complete model is still t
 * `metadata` folder contains training, test, validation text files for yolo model.
 * `yolo_model_900.ipynb` is the Jupyter Notebook for developing this model over 900 training iterations.
 
-# Test example
+# Training Loss:
+<img src="demo_images/Loss2.jpg" title="loss" hspace="20"/>
+
+
+# Test example:
 The ground truth image (left) and prediction (right) result:
 
 <img src="demo_images/pos_test339_label.jpg" width="350" height="350" title="Ground Truth" hspace="20"/> <img src="demo_images/predictions_pos_test339.jpg" width="350" height="350" title="Prediction" hspace="20"/> 
@@ -23,5 +27,4 @@ The ground truth image (left) and prediction (right) result:
 
 <img src="demo_images/neg_test420_label.jpg" width="350" height="350" title="Ground Truth" hspace="20"/> <img src="demo_images/predictions_neg_test420.jpg" width="350" height="350" title="Prediction" hspace="20"/> 
 
-As you can see, the result getting better after training over 900 iteration using whole dataset, but we are still improving!
-
+As you can see, the result is getting better after training over 900 iteration using whole dataset, but we are still improving!
