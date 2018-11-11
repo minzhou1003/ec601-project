@@ -9,3 +9,5 @@ jupyter notebook
 matplotlib
 pydicom
 shutil
+gitpython
+subprocess.run
