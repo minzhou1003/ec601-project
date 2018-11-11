@@ -54,8 +54,8 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
+@app.route('/yolo', methods=['GET', 'POST'])
+def yolo():
     try:
         if request.method == 'POST':
             # check if the post request has the file part
