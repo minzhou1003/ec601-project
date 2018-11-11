@@ -1,8 +1,10 @@
 flask
 numpy
+image
 pandas
 sklearn
 opencv-python
 jupyter notebook
 matplotlib
 pydicom
+shutil
