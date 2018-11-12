@@ -37,13 +37,6 @@ def predict(input_image_path, threh=0.001):
     os.chdir(current_path)
     return output_list
 
-def parse_prediction_result(output):
-    parsed_output = output[output.find('seconds.')+len('seconds.')+1:].replace('\n', '-').split('-')
-    try:
-        return(parsed_output[:5])
-    except:
-        return parsed_output
-
 # Home
 @app.route('/')
 def index():
