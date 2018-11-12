@@ -31,18 +31,18 @@ def predict(input_image_path, threh=0.001):
     p = Popen(['./darknet', 'detector', 'test', 
         '../cfg/rsna.data', '../cfg/rsna_yolov3.cfg_test', 
         '../backup/rsna_yolov3_900.weights', input_image_path, 
-        '-thresh', f'{threh}'], stdout=PIPE)
+        '-thresh', f'{threh}'], stdout=PIPE, universal_newlines=True)
     output = p.communicate()[0]
+    output_list = [item[1:]+'%' for item in output.split('%')[1:-1]]
     os.chdir(current_path)
-    return output
+    return output_list
 
 def parse_prediction_result(output):
-    output = output[output.find('seconds.')+len('seconds.')+1:].replace('\n', '-').split('-')
-    print(len(output))
+    parsed_output = output[output.find('seconds.')+len('seconds.')+1:].replace('\n', '-').split('-')
     try:
-        return(output[:5])
+        return(parsed_output[:5])
     except:
-        return output
+        return parsed_output
 
 # Home
 @app.route('/')
@@ -76,15 +76,13 @@ def yolo():
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 input_image_path = os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 # predict using yolo model
-                output = predict(input_image_path, 0.001)
-                # output = parse_prediction_result(output)
-                # copy the prediciton result to static folder
+                threh = 0.05
+                output_list = predict(input_image_path, threh)
                 prediction_path = os.path.join(darknet_path, 'predictions.jpg')
-                oriimage = cv2.imread(prediction_path)
-                newimage = cv2.resize(oriimage,(512,512))
-                cv2.imwrite('static/predictions.jpg', newimage)                
+                copyfile(prediction_path, 'static/predictions.jpg')                
                 invalidImage = 2
-                return render_template('upload.html', invalidImage=invalidImage, filename=filename, output=output)
+                return render_template('upload.html', invalidImage=invalidImage, 
+                    filename=filename, output=output_list, threh=threh)
             else:
                 invalidImage = 1
                 return render_template('upload.html', invalidImage=invalidImage)
