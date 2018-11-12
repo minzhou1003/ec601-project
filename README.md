@@ -14,7 +14,8 @@ Project progress:
 * `app` folder is the web application of our product.
 * `yolo_model` folder contains some model config files and a Jupyter Notebook used to train the model.
 * `requirements.txt` contains some necessary python libraries to run our code.
-
+* `MASKrcnn_model` contains the python code for Mask-RCNN model.
+* `Lung_Segmentation` contains python code for segmenting lungs before training the Mask-RCNN model. 
 
 # Product statement:
 
@@ -55,7 +56,8 @@ them to improve the efficiency and reach of diagnostic services.
 
 - [x] Sprint 1 (09/26/2018) 
 - [x] Sprint 2 (10/17/2018)
-- [ ] Sprint 3
+- [x] Sprint 3 
+- [ ] Sprint 4
 
 # To test the data anlysis part
 
@@ -91,3 +93,6 @@ Go to the working directory and open your jupyter notebook:
 cd working
 jupyter notebook
 ```
+
+# To run and check demo of our application:
+See our [app instruction](https://github.com/minzhou1003/ec601-project/tree/master/app#web-application-for-pneumonia-detection).

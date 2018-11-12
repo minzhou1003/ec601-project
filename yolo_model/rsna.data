@@ -1,5 +1,0 @@
-classes= 1
-train  = /kaggle/working/metadata/tr_list.txt
-valid  = /kaggle/working/metadata/val_list.txt
-names  = /kaggle/working/cfg/rsna.names
-backup = /kaggle/working/backup

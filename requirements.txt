@@ -1,8 +1,12 @@
 flask
 numpy
+image
 pandas
+seaborn
 sklearn
 opencv-python
-jupyter notebook
 matplotlib
 pydicom
+requests
+gitpython
+subprocess.run
