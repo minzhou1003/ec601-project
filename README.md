@@ -92,3 +92,6 @@ Go to the working directory and open your jupyter notebook:
 cd working
 jupyter notebook
 ```
+
+# To run and check demo of our application:
+See our [app instruction](https://github.com/minzhou1003/ec601-project/tree/master/app#web-application-for-pneumonia-detection).
