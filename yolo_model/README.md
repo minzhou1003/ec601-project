@@ -13,7 +13,7 @@ This is the YOLOv3 model trained on RSNA library over 900 iterations.
 
 
 # Test example:
-The ground truth image (left) and prediction (right) result:
+The ground truth image (left) and prediction (right) result with threshold = 0.05:
 
 <img src="demo_images/pos_test339_label.jpg" width="350" height="350" title="Ground Truth" hspace="20"/> <img src="demo_images/predictions_pos_test339.jpg" width="350" height="350" title="Prediction" hspace="20"/> 
 
