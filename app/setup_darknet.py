@@ -52,7 +52,7 @@ def main():
     if not os.path.exists(darknet_path):
         Repo.clone_from(darknet_url, darknet_path)
     else:
-        print('The darknet folder is already exists.')
+        print('\nThe darknet folder is already exists.')
 
     # go to darknet folder and make
     if not os.path.exists(os.path.join(darknet_path, 'darknet')):
@@ -60,13 +60,13 @@ def main():
         print(Path.cwd())
         call(['make'])
     else:
-        print('The Makefile is already compiled.')
+        print('\nThe Makefile is already compiled.')
 
     # create backup folder
     if not os.path.exists(backup_path):
         os.makedirs(backup_path)
     else:
-        print('The backup folder is already exists.')
+        print('\nThe backup folder is already exists.')
 
     # go to backup folder
     os.chdir(backup_path)
@@ -75,14 +75,11 @@ def main():
 
     if not os.path.exists(os.path.join(backup_path, 'rsna_yolov3_900.weights')):
         id = '1Ju6VjrthMLs-nAOFXevpndJk8ePQo7iw'
-        print('Downloading trained weights...')
+        print('\nDownloading trained weights...')
         download_file_from_google_drive(id, 'rsna_yolov3_900.weights')
-        print(f'Successfully downloaded weights.')
+        print(f'\nSuccessfully downloaded weights.')
     else:
-        print('The weights already exists.')
-
-    print('Current path:')
-    print(Path.cwd())
+        print('\nThe weights already exists.')
 
     
 if __name__ == "__main__":
