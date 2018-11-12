@@ -1,6 +1,6 @@
 # YOLO Model
 
-This is the YOLO model developed on a small dataset. A complete model is still training.
+This is the YOLOv3 model trained on RSNA library over 900 iterations.
 
 # File Instruction:
 * `cfg` folder contains all the config files.
@@ -13,7 +13,7 @@ This is the YOLO model developed on a small dataset. A complete model is still t
 
 
 # Test example:
-The ground truth image (left) and prediction (right) result:
+The ground truth image (left) and prediction (right) result with threshold = 0.05:
 
 <img src="demo_images/pos_test339_label.jpg" width="350" height="350" title="Ground Truth" hspace="20"/> <img src="demo_images/predictions_pos_test339.jpg" width="350" height="350" title="Prediction" hspace="20"/> 
 
