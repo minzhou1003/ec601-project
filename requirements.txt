@@ -7,4 +7,5 @@ sklearn
 opencv-python
 matplotlib
 pydicom
+requests
 subprocess.run
