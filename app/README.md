@@ -11,12 +11,14 @@ This is the web application develeped for our users using [Flask](http://flask.p
 * `uploads` folder stores user input images. 
 
 # To run the code:
+
+* Note: Please follow the first 3 steps of [this](https://github.com/minzhou1003/ec601-project#to-test-the-data-anlysis-part) first.
+
 ```
 cd app
 python setup.py
 python app.py
 ```
-* Note: Please follow the first 3 steps of [this](https://github.com/minzhou1003/ec601-project#to-test-the-data-anlysis-part) first.
 
 # Demo photos of our app:
 ![home](demo/home.png)
