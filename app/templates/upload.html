@@ -43,18 +43,23 @@
         </div>
         
         <h3 class="text-center">Prediction Result of {{filename}}</h3>
-
+        {% if output|length >= 1 %}
+            <div class="myBox">
+                <h4>Pneumonia Positive</h4>
+                <ul>
+                    {% for item in output %}
+                        <li>{{item}}</li>
+                        {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <img src="{{url_for('static', filename='predictions.jpg')}}" title="predictions" hspace="20"/>
+            </div>
+        {% else %}
         <div class="myBox">
-            <h4>Threshold = {{ threh }}</h4>
-            <ul>
-                {% for item in output %}
-                  <li>{{item}}</li>
-                  {% endfor %}
-            </ul>
+            <h4>Pneumonia Negative</h4>
         </div>
-        <div>
-            <img src="{{url_for('static', filename='predictions.jpg')}}" title="predictions" hspace="20"/>
-        </div>
+        {% endif %}
     {% endif %}
 </div>
 {% endblock %}
