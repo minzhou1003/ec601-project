@@ -1,6 +1,6 @@
 # YOLO Model
 
-This is the YOLO model developed on a small dataset. A complete model is still training.
+This is the YOLOv3 model trained on RSNA library over 900 iterations.
 
 # File Instruction:
 * `cfg` folder contains all the config files.
