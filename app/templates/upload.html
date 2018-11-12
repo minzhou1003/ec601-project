@@ -6,11 +6,20 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 50%;
+        width: 40%;
+        float:left
+    }
+        .myBox {
+        border: none;
+        padding: 5px;
+        width: 40%;
+        height: 40%;
+        overflow: scroll;
+        float:right
     }
 </style>
 
-<div class="text-center">
+<div class="text-center" style="margin-top:18px;">
     <h1>Predict pneumonia using YOLO algorithm</h1>
     <form method=post enctype=multipart/form-data>
         <input type=file name=file>
@@ -18,12 +27,11 @@
     </form>
 </div>
 
-
 <div class="text-center">
 
     {% if invalidImage==3 %}
         <div class="text-center" style="margin-top:18px;">
-            Please upload your image!
+            <!-- Please upload your image! -->
         </div>
     {% elif invalidImage==1 %}
         <div class="alert alert-danger" style="margin-top:18px;">
@@ -33,16 +41,20 @@
         <div class="alert alert-success" style="margin-top:18px;">
             <strong>Success!</strong> Your image was upload successfully
         </div>
-        <div class="jumbotron text-center">
-            <h3 class="text-center">{{filename}}</h3>
-            <!-- <ul>
+        
+        <h3 class="text-center">Prediction Result of {{filename}}</h3>
+
+        <div class="myBox">
+            <h4>Threshold = {{ threh }}</h4>
+            <ul>
                 {% for item in output %}
-                  <li>item</li>
+                  <li>{{item}}</li>
                   {% endfor %}
-            </ul> -->
+            </ul>
+        </div>
+        <div>
             <img src="{{url_for('static', filename='predictions.jpg')}}" title="predictions" hspace="20"/>
         </div>
     {% endif %}
 </div>
-
 {% endblock %}
