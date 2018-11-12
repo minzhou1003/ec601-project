@@ -5,7 +5,6 @@ pandas
 seaborn
 sklearn
 opencv-python
-jupyter notebook
 matplotlib
 pydicom
 shutil
