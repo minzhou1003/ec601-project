@@ -4,7 +4,6 @@ This is the web application develeped for our users using [Flask](http://flask.p
 
 # File Instruction:
 * `app.py` is the python script to run this web application.
-* `demo` folder contains the demo of this application.
 * `setup_darknet.py` is python script to set up the trained YOLOv3 model.
 * `static` folder contains images.
 * `template` folder contains the html files.
