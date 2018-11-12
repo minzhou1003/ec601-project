@@ -20,11 +20,7 @@ python setup.py
 python app.py
 ```
 
-# Demo photos of our app:
-![home](demo/home.png)
+# Demo:
+Click on the image to see the video on YouTube:
 
-![upload](demo/upload.png)
-
-![about](demo/about.png)
-
-![contact](demo/contact.png)
+[![](https://img.youtube.com/vi/wPC0tIrzgzg/0.jpg)](https://www.youtube.com/watch?v=wPC0tIrzgzg)
