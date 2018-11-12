@@ -8,4 +8,5 @@ opencv-python
 matplotlib
 pydicom
 requests
+gitpython
 subprocess.run
