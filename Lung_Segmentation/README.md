@@ -64,7 +64,7 @@ Segmented X-Ray
 
 ## Authors
 
-* **Andrew Stoycos** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Andrew Stoycos** - astoycos@bu.edu
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
