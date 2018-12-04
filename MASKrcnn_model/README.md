@@ -60,6 +60,7 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Model Evaluations 
 
+To begin I ran a three benchmark tests with the preprocessed data (from our lung segmentation module), the regular data, and the data + pretrained COCO weights on the initial layers.  Initially these three tests were run for only 16 epocs to get some benchmarks on how I should continue to tain in the future. 
 
 
 
