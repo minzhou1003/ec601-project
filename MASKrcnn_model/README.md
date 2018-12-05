@@ -1,6 +1,6 @@
 # Chest X-Ray Pneumonia diagnosis and bounding box detection using a backbone MASK_RCNN architecture. 
 
-This Module is an attempt to complete the [Kaggle RSNA Pneumonia dection challenge](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge). Specifically it is the attempt to build an algorithm that can detect the visual signal for pneumonia in medical chest x-rays. 
+This Module is an attempt to complete the [Kaggle RSNA Pneumonia dection challenge](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge). Specifically it is the attempt to build an algorithm that can detect the visual signal for pneumonia in medical chest x-rays, and return either pneumonia positive or negative, and if positive also return bounding boxs around the affected areas. 
 
 ## Getting Started
 
@@ -40,29 +40,24 @@ Glob
 
 ```
 
-### Installing
+## Some Initial Thoughts
 
-A step by step series of examples that tell you how to get a development env running
+Pneumonia is an extremely devestating and inpactful disease which affects millions around the world today, so the prospect of using neural networks to help diagnose it was very exciting. However as a machine learning newbie I had much ground to cover before I could tackle such a difficult probem. Therefore I started by building a simple neural network architecture simply to tag a image as pneumonia positive or, which can be found [here](https://github.com/astoycos/Mini_Project2). Ultimatley this simple model architecture did not work very well, stemming from the fact that the patterns in lung opacities which it was trying to identify were very subtle, ultimately requiring a "deeper" architecture. However, it did allow me to get experience with data prepreocessing in python and the basics of Neural Network design. Next I begin researcing the vaious state of the art neuralnetwork architectures exisinting. After reading numerous papers and kernal kaggles I found the Mask_RCNN implementation, created by MIT.  It is unique in the fact that is allows for advanced pixel level segemntation, rather that simple bonunding box creation as see in other architectues such as RCNN and Faster RCNN. Therefore, I decided to progress in the project using it as my primary neural network architecture. To assist with the data preprocessing I also had the idea to segment the lungs out of the chest X - rays before using them to train the model in order to prevent exposing it to an erroneous data. Although I did not end up using [this module](https://github.com/astoycos/ec601-project/tree/master/Lung_Segmentation) it has many other practical uses. 
 
-Say what the step will be
+## Early Model train Evaluations 
 
-```
-Give the example
-```
+To begin I ran three training attempts with the preprocessed data (from our lung segmentation module), the regular data, and the data + pretrained COCO weights on the initial layers.  Initially these three tests were run for only 16 epocs using Matterport's Mask_RCNN implementation, a resnet50 backbone,256 * 256 image input, and some standard config settings used by this [Kaggle Kernal](https://www.kaggle.com/hmendonca/mask-rcnn-and-coco-transfer-learning-lb-0-155). These settings allowed me to run relitively quickly on the free expernal servers provided by kaggle, these initial results are shown below: 
 
-And repeat
+### PreProcessed Data (Lung Segmentation) Final Loss = 2.17
+![pp_data](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/epocs%3D16_LR%3D.00005_.0005_L%3D2.17_PPDATA.jpeg)
 
-```
-until finished
-```
+### Regular Data (No pretrained weights) Final Loss = 1.85
+![data](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/epocs%3D16_LR%3D.00005_.0005_L%3D1.8461_DATA.jpeg)
 
-End with an example of getting some data out of the system or using it for a little demo
+### Regular Data (using COCO pretrained weights) Final Loss = 1.39 
+![data_and_coco](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/epocs%3D16_LR%3D.00005_.0005_L%3D1.39_DATA_cocoweights.jpeg)
 
-## Model Evaluations 
-
-To begin I ran a three benchmark tests with the preprocessed data (from our lung segmentation module), the regular data, and the data + pretrained COCO weights on the initial layers.  Initially these three tests were run for only 16 epocs to get some benchmarks on how I should continue to tain in the future. 
-
-
+Although it is no suprise the pretrained COCO dataset weights helped minimize training loss I was interested to see that the [preprocessed data](https://github.com/astoycos/ec601-project/tree/master/Lung_Segmentation) did much worse. However, after looking though the preprocessed Dataset I began to see some chest xrays with too much segmentation as shown below. 
 
 ## Authors
 
