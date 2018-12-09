@@ -49,7 +49,7 @@ them to improve the efficiency and reach of diagnostic services.
 
 * ## [YOLO v3 Model](https://github.com/minzhou1003/ec601-project/tree/master/yolo_model)
 
-* ## Mask-RCNN model
+* ## [Mask-RCNN model](https://github.com/minzhou1003/ec601-project/tree/master/MASKrcnn_model)
 
 
 # Sprints:
