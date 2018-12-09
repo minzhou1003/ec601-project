@@ -64,32 +64,40 @@ From the Previous results it was clear that further training and hyperparameter 
 
 ![sub.csv](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-10-14%20at%2011.16.50%20PM.png)
 
-with my intial model scoring a pretty dismal official score of .04635. 
+with my intial model scoring a pretty dismal official score of .08425. 
 
 
 ## Moving forward in the training process 
 
-As I began ramping up my training efforts, I moved from using Kaggle's free cloud resouces to Boston Univerity's shared computing cluster in order to have access to more computing resouces. While the hardware improved dramatically with the SCC, testing and iteration time also increased, often taking up to 3 days for a model to complete training. For the next few training attempts I did nothing but attempt to finetune the learning rate, I quickly setteled on one that varied in three steps.  For the first 5 epocs a larger LR of .001 along with the help of the pretrained COCO weights helped the model quckly identify features such as the edges and shapes of the lungs, then the LR was changed to .0005 for 5 epochs and finally .0001 for 6 epocs to minimize the viarability in the loss.  Although the official [MASK-RCNN paper](https://arxiv.org/abs/1703.06870) paper suggested a leraning rate of .02, I found that such a rate caused the weights to explode, essentially erasing further results. Also, when a smaller learing rate was tested, convergence time was extremely large requiring a large amount of epocs and usually resulting in overfitting. Following learning rate finetuning, I began boosting the resolution of the input images from 256 X 256 to 512 X 512, thinking that the added resolution may help the model distinguish between radiograph background and lung opacities. I addition I also bosted the # of epochs to 40 to see if the loss decline would continue to be constant. These changes resulted in much better outcomes, with a new lowest loss of 1.39 and updated Kaggle score of .07182. 
+As I began ramping up my training efforts, I moved from using Kaggle's free cloud resouces to Boston Univerity's shared computing cluster in order to have access to more computing resouces. While the hardware improved dramatically with the SCC, testing and iteration time also increased, often taking up to 3 days for a model to complete training. For the next few training attempts I did nothing but attempt to finetune the learning rate, I quickly setteled on one that varied in three steps.  For the first 5 epocs a larger LR of .001 along with the help of the pretrained COCO weights helped the model quckly identify features such as the edges and shapes of the lungs, then the LR was changed to .0005 for 5 epochs and finally .0001 for 6 epocs to minimize the viarability in the loss.  Although the official [MASK-RCNN paper](https://arxiv.org/abs/1703.06870) paper suggested a leraning rate of .02, I found that such a rate caused the weights to explode, essentially erasing further results. Also, when a smaller learing rate was tested, convergence time was extremely large requiring a large amount of epocs and usually resulting in overfitting. Following learning rate finetuning, I began boosting the resolution of the input images from 256 X 256 to 512 X 512, thinking that the added resolution may help the model distinguish between radiograph background and lung opacities. I addition I also bosted the # of epochs to 40 to see if the loss decline would continue to be constant. These changes resulted in much better outcomes, with a new lowest loss of 1.39 and updated Kaggle score of .11097. 
+
+### Final Loss = 1.39 Kaggle score = .11097
 
 ![Loss=1.39](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/epocs%3D40_LR%3D.0005_L%3D1.39.jpeg)
 
 Due to the large accurracy jumps with the above changes, I also exeperimented with changing the backbone neural network architecture to RESNET 101 and the input image size to 1024 X 1024, hoping that increased architecture complexity would help the model identify the minute opacity patterns. However, with both these changes the model complexity increased so much the so that even the powerful SCC hardware coulednt handle the burdon and results were meaningless. 
 
-Thefore I took a step back and simply boosted the number of epocs to 100 to see if Loss could be further minmized without overshoot occuring.  This simple change allowed me to again achieve a better result with a Loss of 1.14 and Kaggle score of .08919
+Thefore I took a step back and simply boosted the number of epocs to 100 to see if Loss could be further minmized without overshoot occuring.  This simple change allowed me to again achieve a better result with a Loss of 1.14 and Kaggle score of .13472
 
+### Final Loss = 1.14 Kaggle score = .13472
 ![L=1.14](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/losses_vs_epocs-%3EL%3D1.14_100epocs.jpg)
 
-## Final training 
+## Most current Training efforts  
 
 As the end of the semester neared one of the fewe hyperparameters I had yet to touch was batch size, I.E the number of training images the model was exposed to in each epoch.  The original batch size was 200 so to see what would happen I increased it to a wopping 500 and boosted the epochs to 200.  With these dramatic changes I knew there was a high probablity of overfitting, since the model was being exposed to the training data so many times, and that is in fact what happened as shown below. 
 
 ![Overshoot](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/losses_vs_epocs_overshoot.png)
 
-Therefore to minimize the overfitting problem I reduced the batch size to 300 and only trained for 150 epochs, which ultimately allowed me to achieve my best results to date, with a Loss = 1.0864 and Kaggle score of .13906. 
+Therefore to minimize the overfitting problem I reduced the batch size to 300 and only trained for 150 epochs, which ultimately allowed me to achieve my best results to date, with a Loss = 1.0864 and Kaggle score of .13906.
+
+### Final Loss = 1.0846 Kaggle score = .13906
 
 ![best](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/losses_vs_epocs-%3E.13906.png)
 
 
+## Moving Forward 
+
+This project is a work in progress, as machine learning is an extremely time consuming process each iterations can take weeks
 
 
 
