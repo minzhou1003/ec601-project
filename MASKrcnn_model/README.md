@@ -58,7 +58,7 @@ To begin I ran three training attempts with the preprocessed data (from our lung
 
 Although it is no suprise the pretrained COCO dataset weights helped minimize training loss I was interested to see that the [preprocessed data](https://github.com/astoycos/ec601-project/tree/master/Lung_Segmentation) did much worse. However, after looking though the preprocessed Dataset I began to see some chest xrays with too much segmentation as shown below. 
 
-![segment_fail](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/0d0a219a-f091-430b-a0c4-6a90faa1636c_predict.png)
+![segment_fail](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-12-09%20at%204.30.38%20PM.png)
 
 From the Previous results it was clear that further training and hyperparameter tuning should be compleated using non-segmented data with pretrained coco weights. Also, rather than using just losses to evaluate the accuracy of the model, a formal submission csv was created and submitted in order to acquire an official score from kaggle. This score was calculated based on the IOU(intersection over union) of predicted vs actual bounding boxes. The submission format was as follows, 
 
