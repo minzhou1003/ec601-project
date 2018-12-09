@@ -19,7 +19,7 @@ import pickle
 
 # empty dictionary
 DATA_DIR = '/usr3/graduate/astoycos/A1_Pneumonia_Detection_DATA/'
-ROOTDIRECTORY = '/usr3/graduate/astoycos/'
+ROOTDIRECTORY = '/usr3/graduate/astoycos/A1_Pneumonia_Model'
 
 #need to have Mask_RCNN downloaded 
 #!git clone https://www.github.com/matterport/Mask_RCNN.git
@@ -50,6 +50,7 @@ def parse_dataset(dicom_dir, anns):
         image_annotations[fp].append(row)
     return image_fps, image_annotations
 
+#Config for running model in inference mode m must match config used in training 
 
 
 class DetectorConfig(Config):
@@ -77,13 +78,12 @@ class DetectorConfig(Config):
     DETECTION_MAX_INSTANCES = 3
     DETECTION_MIN_CONFIDENCE = 0.78  ## match target distribution
     DETECTION_NMS_THRESHOLD = 0.01
-
-    STEPS_PER_EPOCH = 200
+    LEARNING_MOMENTUM = 0.85
+    
+    STEPS_PER_EPOCH = 300
 
 config = DetectorConfig()
 config.display()
-
-
 
 model = modellib.MaskRCNN(mode='training', config=config, model_dir=ROOTDIRECTORY)
 
@@ -140,96 +140,9 @@ class DetectorDataset(utils.Dataset):
                     mask[:, :, i] = mask_instance
                     class_ids[i] = 1
         return mask.astype(np.bool), class_ids.astype(np.int32)
-        
-        
-# training dataset
-anns = pd.read_csv(os.path.join(DATA_DIR, 'stage_2_train_labels.csv'))
-anns.head()
-
-image_fps, image_annotations = parse_dataset(train_dicom_dir, anns=anns)
-
-#ds = pydicom.read_file(image_fps[0]) # read dicom image from filepath 
-#image = ds.pixel_array # get image array
-
-# show dicom fields 
-#print(ds)
-
+ 
 ORIG_SIZE = 1024
-
-######################################################################
-# Modify this line to use more or fewer images for training/validation. 
-# To use all images, do: image_fps_list = list(image_fps)
-
-print(len(image_fps))
-image_fps_list = list(image_fps) 
-
-#####################################################################
-
-# split dataset into training vs. validation dataset 
-# split ratio is set to 0.9 vs. 0.1 (train vs. validation, respectively)
-image_fps_list = list(image_fps)
-random.seed(42)
-random.shuffle(image_fps_list)
-val_size = 2668
-image_fps_val = image_fps_list[:val_size]
-image_fps_train = image_fps_list[val_size:]
-
-print(len(image_fps_train), len(image_fps_val))
-# print(image_fps_val[:6])
-
-# prepare the training dataset
-# prepare the training dataset
-dataset_train = DetectorDataset(image_fps_train, image_annotations, ORIG_SIZE, ORIG_SIZE)
-dataset_train.prepare()
-
-# Show annotation(s) for a DICOM image 
-test_fp = random.choice(image_fps_train)
-#print(image_annotations[test_fp])
-
-# prepare the validation dataset
-dataset_val = DetectorDataset(image_fps_val, image_annotations, ORIG_SIZE, ORIG_SIZE)
-dataset_val.prepare()
-
-# Load and display random samples and their bounding boxes
-# Suggestion: Run this a few times to see different examples. 
-
-image_id = random.choice(dataset_train.image_ids)
-image_fp = dataset_train.image_reference(image_id)
-image = dataset_train.load_image(image_id)
-mask, class_ids = dataset_train.load_mask(image_id)
-print("Example annotations")
-print(image_annotations[image_fp])
-
-
-print(image.shape)
-print(mask.shape)
-
-plt.figure(figsize=(10, 10))
-plt.subplot(1, 3, 1)
-plt.imshow(image[:, :, 0], cmap='gray')
-plt.axis('on')
-
-plt.subplot(1, 3, 2)
-
-plt.imshow(mask[:,:,0])
-
-plt.subplot(1, 3, 3)
-masked = np.zeros(image.shape[:2])
-for i in range(mask.shape[2]):
-    masked += image[:, :, 0] * mask[:, :, i]
-plt.imshow(masked, cmap='gray')
-plt.axis('on')
-
-plt.show()
-print(image_fp)
-print(class_ids)
-
-
-
-
-
-
-
+       
 # select trained model 
 dir_names = next(os.walk(model.model_dir))[1]
 key = config.NAME.lower()
@@ -285,35 +198,11 @@ def get_colors_for_class_ids(class_ids):
             colors.append((.941, .204, .204))
     return colors
 
-# Show few example of ground truth vs. predictions on the validation dataset 
-dataset = dataset_val
-fig = plt.figure(figsize=(10, 30))
-
-for i in range(4):
-
-    image_id = random.choice(dataset.image_ids)
-    
-    original_image, image_meta, gt_class_id, gt_bbox, gt_mask =\
-        modellib.load_image_gt(dataset_val, inference_config, 
-                               image_id, use_mini_mask=False)
-        
-    plt.subplot(6, 2, 2*i + 1)
-    visualize.display_instances(original_image, gt_bbox, gt_mask, gt_class_id, 
-                                dataset.class_names,
-                                colors=get_colors_for_class_ids(gt_class_id), ax=fig.axes[-1])
-    
-    plt.subplot(6, 2, 2*i + 2)
-    results = model.detect([original_image]) #, verbose=1)
-    r = results[0]
-    visualize.display_instances(original_image, r['rois'], r['masks'], r['class_ids'], 
-                                dataset.class_names, r['scores'], 
-                                colors=get_colors_for_class_ids(r['class_ids']), ax=fig.axes[-1])
-
 # Get filenames of test dataset DICOM images
 test_image_fps = get_dicom_fps(test_dicom_dir)
 
 # Make predictions on test images, write out sample submission 
-def predict(image_fps, filepath='submission.csv', min_conf=0.95): 
+def predict(image_fps, filepath='submission2.csv', min_conf=0.95): 
     
     # assume square image
     resize_factor = ORIG_SIZE / config.IMAGE_SHAPE[0]
@@ -364,11 +253,11 @@ def predict(image_fps, filepath='submission.csv', min_conf=0.95):
 #                     bboxes_str = "{} {} {} {}".format(x1, y1, \
 #                                                       width, height)
                     out_str += bboxes_str
-
+        print(out_str)
         file.write(out_str+"\n")
         
 # predict only the first 50 entries
-submission_fp = os.path.join(ROOTDIRECTORY, 'submission.csv')
+submission_fp = os.path.join(ROOTDIRECTORY, 'submission2.csv')
 print(submission_fp)
 predict(test_image_fps, filepath=submission_fp)
 
@@ -410,7 +299,7 @@ def visualize():
         x1 = int(bbox[1] * resize_factor)
         y1 = int(bbox[0] * resize_factor)
         x2 = int(bbox[3] * resize_factor)
-        y2 = int(bbox[2]  * resize_factor)
+        y2 = int(bbox[2] * resize_factor)
         cv2.rectangle(image, (x1,y1), (x2,y2), (77, 255, 9), 3, 1)
         width = x2 - x1 
         height = y2 - y1 

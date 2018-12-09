@@ -7,6 +7,8 @@ import random
 import math
 import numpy as np
 import cv2
+import matplotlib
+matplotlib.use('Agg') # Must be before importing matplotlib.pyplot or pylab!
 import matplotlib.pyplot as plt
 import json
 import pydicom
@@ -22,7 +24,7 @@ import pickle
 
 # empty dictionary
 DATA_DIR = '/usr3/graduate/astoycos/A1_Pneumonia_Detection_DATA/'
-ROOTDIRECTORY = '/usr3/graduate/astoycos/'
+ROOTDIRECTORY = '/usr3/graduate/astoycos/A1_Pneumonia_Model'
 
 #need to have Mask_RCNN downloaded 
 #!git clone https://www.github.com/matterport/Mask_RCNN.git
@@ -79,16 +81,17 @@ class DetectorConfig(Config):
     
     NUM_CLASSES = 2  # background + 1 pneumonia classes
    
-    IMAGE_MIN_DIM = 1024
-    IMAGE_MAX_DIM = 1024
+    IMAGE_MIN_DIM = 512
+    IMAGE_MAX_DIM = 512
     RPN_ANCHOR_SCALES = (16, 32, 64, 128)
     TRAIN_ROIS_PER_IMAGE = 32
     MAX_GT_INSTANCES = 4
     DETECTION_MAX_INSTANCES = 3
-    DETECTION_MIN_CONFIDENCE = 0.78  ## match target distribution
+    DETECTION_MIN_CONFIDENCE = 0.80  ## match target distribution
     DETECTION_NMS_THRESHOLD = 0.01
-
-    STEPS_PER_EPOCH = 200
+    LEARNING_MOMENTUM = 0.85
+	
+    STEPS_PER_EPOCH = 500
 
 config = DetectorConfig()
 config.display()
@@ -154,11 +157,11 @@ anns.head()
 
 image_fps, image_annotations = parse_dataset(train_dicom_dir, anns=anns)
 
-#ds = pydicom.read_file(image_fps[0]) # read dicom image from filepath 
-#image = ds.pixel_array # get image array
+ds = pydicom.read_file(image_fps[0]) # read dicom image from filepath 
+image = ds.pixel_array # get image array
 
 # show dicom fields 
-#print(ds)
+print(ds)
 
 ORIG_SIZE = 1024
 
@@ -166,7 +169,7 @@ ORIG_SIZE = 1024
 # Modify this line to use more or fewer images for training/validation. 
 # To use all images, do: image_fps_list = list(image_fps)
 
-print(len(image_fps))
+#print(len(image_fps))
 image_fps_list = list(image_fps) 
 
 #####################################################################
@@ -181,9 +184,8 @@ image_fps_val = image_fps_list[:val_size]
 image_fps_train = image_fps_list[val_size:]
 
 print(len(image_fps_train), len(image_fps_val))
-# print(image_fps_val[:6])
+print(image_fps_val[:6])
 
-# prepare the training dataset
 # prepare the training dataset
 dataset_train = DetectorDataset(image_fps_train, image_annotations, ORIG_SIZE, ORIG_SIZE)
 dataset_train.prepare()
@@ -203,6 +205,8 @@ image_id = random.choice(dataset_train.image_ids)
 image_fp = dataset_train.image_reference(image_id)
 image = dataset_train.load_image(image_id)
 mask, class_ids = dataset_train.load_mask(image_id)
+
+
 print("Load and display random samples and their bounding boxes")
 print(image.shape)
 print(mask.shape)
@@ -220,7 +224,7 @@ for i in range(mask.shape[2]):
 plt.imshow(masked, cmap='gray')
 plt.axis('off')
 
-plt.show()
+plt.savefig('bb_example.jpeg')
 print(image_fp)
 print(class_ids)
 
@@ -252,7 +256,7 @@ imggrid = augmentation.draw_grid(image[:, :, 0], cols=5, rows=2)
 plt.figure(figsize=(30, 12))
 _ = plt.imshow(imggrid[:, :, 0], cmap='gray')
 '''
-LEARNING_RATE = .0001
+
 
 model = modellib.MaskRCNN(mode='training', config=config, model_dir=ROOTDIRECTORY)
 
@@ -261,7 +265,11 @@ model = modellib.MaskRCNN(mode='training', config=config, model_dir=ROOTDIRECTOR
 model.load_weights(COCO_WEIGHTS_PATH, by_name=True, exclude=[
     "mrcnn_class_logits", "mrcnn_bbox_fc",
     "mrcnn_bbox", "mrcnn_mask"])
-    
+  
+
+LEARNING_RATE = .0005  
+
+
 # Train Mask-RCNN Model 
 import warnings 
 warnings.filterwarnings("ignore")
@@ -270,7 +278,7 @@ warnings.filterwarnings("ignore")
 
 ## train heads with higher lr to speedup the learning
 model.train(dataset_train, dataset_val,
-            learning_rate=LEARNING_RATE*5,
+            learning_rate=LEARNING_RATE*2,
             epochs=5,
             layers='heads',
             augmentation=None)  ## no need to augment yet
@@ -279,29 +287,16 @@ history = model.keras_model.history.history
 
 model.train(dataset_train, dataset_val,
             learning_rate=LEARNING_RATE,
-            epochs=6,
+            epochs=10,
             layers='all',
             augmentation=augmentation)
 
 new_history = model.keras_model.history.history
 for k in new_history: history[k] = history[k] + new_history[k]
-'''
-#print(history)
-#time
-model.train(dataset_train, dataset_val,
-            learning_rate=LEARNING_RATE,
-            epochs=6,
-            layers='all',
-            augmentation=augmentation)
-
-new_history = model.keras_model.history.history
-for k in new_history: history[k] = history[k] + new_history[k]
-'''
-
 
 model.train(dataset_train, dataset_val,
             learning_rate=LEARNING_RATE/5,
-            epochs=16,
+            epochs=200	,
             layers='all',
             augmentation=augmentation)
 
@@ -328,8 +323,7 @@ plt.plot(epochs, history["mrcnn_bbox_loss"], label="Train box loss")
 plt.plot(epochs, history["val_mrcnn_bbox_loss"], label="Valid box loss")
 plt.legend()
 
-plt.show()
-#plt.imsave("data.jpg")
+plt.savefig("/usr3/graduate/astoycos/A1_Pneumonia_Model/losses_vs_epocs.png")
 
 best_epoch = np.argmin(history["val_loss"])
 print("Best Epoch:", best_epoch + 1, history["val_loss"][best_epoch])
@@ -338,209 +332,10 @@ print("Best Epoch:", best_epoch + 1, history["val_loss"][best_epoch])
 #model_json = model.to_json()
 #with open("MASKrcnn_pneumonia_model.json", "w") as json_file:
 #    json_file.write(model_json)
-'''
-#save model weights 
-model.save_weights('MASKrcnn_pneumonia_model_weights.h5')
-'''
+
 #save model history 
 with open('MASKrcnn_pneumoia_model_history.pkl', 'wb') as f:
-	pickle.dump(new_history, f, pickle.HIGHEST_PROTOCOL)
-
-
-
-
-
-
-# select trained model 
-dir_names = next(os.walk(model.model_dir))[1]
-key = config.NAME.lower()
-dir_names = filter(lambda f: f.startswith(key), dir_names)
-dir_names = sorted(dir_names)
-
-if not dir_names:
-    import errno
-    raise FileNotFoundError(
-        errno.ENOENT,
-        "Could not find model directory under {}".format(self.model_dir))
-    
-fps = []
-
-# Pick last directory
-for d in dir_names: 
-    dir_name = os.path.join(model.model_dir, d)
-    # Find the last checkpoint
-    checkpoints = next(os.walk(dir_name))[2]
-    checkpoints = filter(lambda f: f.startswith("mask_rcnn"), checkpoints)
-    checkpoints = sorted(checkpoints)
-    if not checkpoints:
-        print('No weight files in {}'.format(dir_name))
-    else: 
-      
-      checkpoint = os.path.join(dir_name, checkpoints[-1])
-      fps.append(checkpoint)
-
-model_path = sorted(fps)[-1]
-print('Found model {}'.format(model_path))
-
-class InferenceConfig(DetectorConfig):
-    GPU_COUNT = 1
-    IMAGES_PER_GPU = 1
-
-inference_config = InferenceConfig()
-
-# Recreate the model in inference mode
-model = modellib.MaskRCNN(mode='inference', 
-                          config=inference_config,
-                          model_dir=ROOTDIRECTORY)
-
-# Load trained weights (fill in path to trained weights here)
-assert model_path != "", "Provide path to trained weights"
-print("Loading weights from ", model_path)
-model.load_weights(model_path, by_name=True)
-
-# set color for class
-def get_colors_for_class_ids(class_ids):
-    colors = []
-    for class_id in class_ids:
-        if class_id == 1:
-            colors.append((.941, .204, .204))
-    return colors
-
-# Show few example of ground truth vs. predictions on the validation dataset 
-dataset = dataset_val
-fig = plt.figure(figsize=(10, 30))
-
-for i in range(4):
-
-    image_id = random.choice(dataset.image_ids)
-    
-    original_image, image_meta, gt_class_id, gt_bbox, gt_mask =\
-        modellib.load_image_gt(dataset_val, inference_config, 
-                               image_id, use_mini_mask=False)
-        
-    plt.subplot(6, 2, 2*i + 1)
-    visualize.display_instances(original_image, gt_bbox, gt_mask, gt_class_id, 
-                                dataset.class_names,
-                                colors=get_colors_for_class_ids(gt_class_id), ax=fig.axes[-1])
-    
-    plt.subplot(6, 2, 2*i + 2)
-    results = model.detect([original_image]) #, verbose=1)
-    r = results[0]
-    visualize.display_instances(original_image, r['rois'], r['masks'], r['class_ids'], 
-                                dataset.class_names, r['scores'], 
-                                colors=get_colors_for_class_ids(r['class_ids']), ax=fig.axes[-1])
-
-
-'''
-# Get filenames of test dataset DICOM images
-test_image_fps = get_dicom_fps(test_dicom_dir)
-
-# Make predictions on test images, write out sample submission 
-def predict(image_fps, filepath='submission.csv', min_conf=0.95): 
-    
-    # assume square image
-    resize_factor = ORIG_SIZE / config.IMAGE_SHAPE[0]
-    #resize_factor = ORIG_SIZE 
-    with open(filepath, 'w') as file:
-      for image_id in tqdm(image_fps): 
-        ds = pydicom.read_file(image_id)
-        image = ds.pixel_array
-        # If grayscale. Convert to RGB for consistency.
-        if len(image.shape) != 3 or image.shape[2] != 3:
-            image = np.stack((image,) * 3, -1) 
-        image, window, scale, padding, crop = utils.resize_image(
-            image,
-            min_dim=config.IMAGE_MIN_DIM,
-            min_scale=config.IMAGE_MIN_SCALE,
-            max_dim=config.IMAGE_MAX_DIM,
-            mode=config.IMAGE_RESIZE_MODE)
-            
-        patient_id = os.path.splitext(os.path.basename(image_id))[0]
-
-        results = model.detect([image])
-        r = results[0]
-
-        out_str = ""
-        out_str += patient_id 
-        out_str += ","
-        assert( len(r['rois']) == len(r['class_ids']) == len(r['scores']) )
-        if len(r['rois']) == 0: 
-            pass
-        else: 
-            num_instances = len(r['rois'])
-  
-            for i in range(num_instances): 
-                if r['scores'][i] > min_conf: 
-                    out_str += ' '
-                    out_str += str(round(r['scores'][i], 2))
-                    out_str += ' '
-
-                    # x1, y1, width, height 
-                    x1 = r['rois'][i][1]
-                    y1 = r['rois'][i][0]
-                    width = r['rois'][i][3] - x1 
-                    height = r['rois'][i][2] - y1 
-                    bboxes_str = "{} {} {} {}".format(x1*resize_factor, y1*resize_factor, \
-                                                       width*resize_factor, height*resize_factor)   
-#                     bboxes_str = "{} {} {} {}".format(x1, y1, \
-#                                                       width, height)
-                    out_str += bboxes_str
-
-        file.write(out_str+"\n")
-        
-# predict only the first 50 entries
-submission_fp = os.path.join(ROOTDIRECTORY, 'submission.csv')
-print(submission_fp)
-predict(test_image_fps, filepath=submission_fp)
-
-output = pd.read_csv(submission_fp, names=['patientId', 'PredictionString'])
-output.head(100)
-
-## show submission.csv content
-#os.chdir(ROOT_DIR)
-#!cat submission.csv
-
-# show a few test image detection example
-def visualize(): 
-    image_id = random.choice(test_image_fps)
-    ds = pydicom.read_file(image_id)
-    
-    # original image 
-    image = ds.pixel_array
-    
-    # assume square image 
-    resize_factor = ORIG_SIZE / config.IMAGE_SHAPE[0]
-    
-    # If grayscale. Convert to RGB for consistency.
-    if len(image.shape) != 3 or image.shape[2] != 3:
-        image = np.stack((image,) * 3, -1) 
-    resized_image, window, scale, padding, crop = utils.resize_image(
-        image,
-        min_dim=config.IMAGE_MIN_DIM,
-        min_scale=config.IMAGE_MIN_SCALE,
-        max_dim=config.IMAGE_MAX_DIM,
-        mode=config.IMAGE_RESIZE_MODE)
-
-    patient_id = os.path.splitext(os.path.basename(image_id))[0]
-    print(patient_id)
-
-    results = model.detect([resized_image])
-    r = results[0]
-    for bbox in r['rois']: 
-        print(bbox)
-        x1 = int(bbox[1] * resize_factor)
-        y1 = int(bbox[0] * resize_factor)
-        x2 = int(bbox[3] * resize_factor)
-        y2 = int(bbox[2]  * resize_factor)
-        cv2.rectangle(image, (x1,y1), (x2,y2), (77, 255, 9), 3, 1)
-        width = x2 - x1 
-        height = y2 - y1 
-        print("x {} y {} h {} w {}".format(x1, y1, width, height))
-    plt.figure() 
-    plt.imshow(image, cmap=plt.cm.gist_gray)
-
-visualize()
-'''
+	pickle.dump(history, f, pickle.HIGHEST_PROTOCOL)
 
 
 
