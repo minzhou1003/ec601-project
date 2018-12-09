@@ -59,6 +59,14 @@ To begin I ran three training attempts with the preprocessed data (from our lung
 
 Although it is no suprise the pretrained COCO dataset weights helped minimize training loss I was interested to see that the [preprocessed data](https://github.com/astoycos/ec601-project/tree/master/Lung_Segmentation) did much worse. However, after looking though the preprocessed Dataset I began to see some chest xrays with too much segmentation as shown below. 
 
+PUT IN SEG IMAGES 
+
+From the Previous results it was clear that further training and hyperparameter tuning should be compleated using non-segmented data with pretrained coco weights. Also, rather than using just losses to evaluate the accuracy of the model, a formal submission csv was created and submitted in order to acquire an official score from kaggle. Th.046 e submission format was as follows, 
+
+with my intial model scoring a pretty dismal score of .04635. 
+
+For the next training attempt I began by boosting the resolution of the input images from 256 X 256 to 512 X 512, thinking that the added resolution may help the model distinguish between radiograph background and lung opacities 
+
 ## Authors
 
 * **Andrew Stoycos** - astoycos@bu.edu
