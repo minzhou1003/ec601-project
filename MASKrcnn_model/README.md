@@ -59,13 +59,15 @@ To begin I ran three training attempts with the preprocessed data (from our lung
 
 Although it is no suprise the pretrained COCO dataset weights helped minimize training loss I was interested to see that the [preprocessed data](https://github.com/astoycos/ec601-project/tree/master/Lung_Segmentation) did much worse. However, after looking though the preprocessed Dataset I began to see some chest xrays with too much segmentation as shown below. 
 
-PUT IN SEG IMAGES 
+![segment_fail](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/0d0a219a-f091-430b-a0c4-6a90faa1636c_predict.png)
 
-From the Previous results it was clear that further training and hyperparameter tuning should be compleated using non-segmented data with pretrained coco weights. Also, rather than using just losses to evaluate the accuracy of the model, a formal submission csv was created and submitted in order to acquire an official score from kaggle. Th.046 e submission format was as follows, 
+From the Previous results it was clear that further training and hyperparameter tuning should be compleated using non-segmented data with pretrained coco weights. Also, rather than using just losses to evaluate the accuracy of the model, a formal submission csv was created and submitted in order to acquire an official score from kaggle. The submission format was as follows, 
 
-with my intial model scoring a pretty dismal score of .04635. 
+![sub.csv](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-10-14%20at%2011.16.50%20PM.png)
 
-For the next training attempt I began by boosting the resolution of the input images from 256 X 256 to 512 X 512, thinking that the added resolution may help the model distinguish between radiograph background and lung opacities 
+with my intial model scoring a pretty dismal official score of .04635. 
+
+For the next training attempt I began by boosting the resolution of the input images from 256 X 256 to 512 X 512, thinking that the added resolution may help the model distinguish between radiograph background and lung opacities.  
 
 ## Authors
 
