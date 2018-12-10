@@ -104,7 +104,7 @@ As the end of the semester neared one of the fewe hyperparameters I had yet to t
 
 ![Overshoot](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/losses_vs_epocs_overshoot.png)
 
-Therefore to minimize the overfitting problem I reduced the batch size to 300 and only trained for 150 epochs, which ultimately allowed me to achieve my best results to date, with a Loss = 1.0864 and Kaggle score of .13906.
+Therefore to minimize the overfitting problem I reduced the batch size to 300 and only trained for 100 epochs, which ultimately allowed me to achieve my best results to date, with a Loss = 1.0864 and Kaggle score of .13906.
 
 ### Final Loss = 1.0846 Kaggle score = .13906
 
