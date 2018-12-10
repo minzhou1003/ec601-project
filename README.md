@@ -54,9 +54,9 @@ them to improve the efficiency and reach of diagnostic services.
 
 # Machine Learning Model (Deep Learning)
 
-* ## [YOLO v3 Model](https://github.com/minzhou1003/ec601-project/tree/master/yolo_model)
+1. ## [YOLO v3 Model](https://github.com/minzhou1003/ec601-project/tree/master/yolo_model)
 
-[YOLO](https://pjreddie.com/darknet/yolo/)is an open source real-time object detection model. It has 106 layers and it's using localization, classificaiton, regression and Focal loss. The benifits of using YOLO v3 are listing below:
+[YOLO](https://pjreddie.com/darknet/yolo/) is an open source real-time object detection model. It has 106 layers and it's using localization, classificaiton, regression and Focal loss. The benifits of using YOLO v3 are listing below:
 
 - Due to computational limitation, YOLO is fast and accurate for our problem.
 - Easy to change the achitecture and parameters.
@@ -64,7 +64,7 @@ them to improve the efficiency and reach of diagnostic services.
 
 
 
-* ## [Mask-RCNN model](https://github.com/minzhou1003/ec601-project/tree/master/MASKrcnn_model)
+2. ## [Mask-RCNN model](https://github.com/minzhou1003/ec601-project/tree/master/MASKrcnn_model)
 
 
 # Sprints:
