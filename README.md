@@ -45,9 +45,24 @@ them to improve the efficiency and reach of diagnostic services.
 # System Diagram
 ![system_diagram](app/static/system_diagram.jpg)
 
+# Data Source
+
+- [The RSNA training dataset](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge/data) is made up of 26684 chest radiographs in DICOM format can be download from kaggle. 
+- This is a binary class data: 68% pneumonia negative and 32% pneumonia negative with bounding box labels.
+- The resolution of raw image is 1024x1024.
+
+
 # Machine Learning Model (Deep Learning)
 
 * ## [YOLO v3 Model](https://github.com/minzhou1003/ec601-project/tree/master/yolo_model)
+
+[YOLO](https://pjreddie.com/darknet/yolo/)is an open source real-time object detection model. It has 106 layers and it's using localization, classificaiton, regression and Focal loss. The benifits of using YOLO v3 are listing below:
+
+- Due to computational limitation, YOLO is fast and accurate for our problem.
+- Easy to change the achitecture and parameters.
+- There are a lot of resources to train and optimize the model.
+
+
 
 * ## [Mask-RCNN model](https://github.com/minzhou1003/ec601-project/tree/master/MASKrcnn_model)
 
