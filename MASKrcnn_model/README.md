@@ -17,7 +17,9 @@ Clone the Mask_Rcnn implementation by running the following code in the project 
 ```
 git clone https://github.com/matterport/Mask_RCNN.git
 ```
-Python and keras are essential to this script and must be downloaded, specifically 
+
+Python and Tensorflow are essential to this script and must be downloaded, specifically 
+
 ```
 python/3.6.2 
 tensorflow/r1.10 
@@ -39,9 +41,23 @@ Glob
 
 ```
 
+## Modules 
+
+### andrew_RSNA_project.py 
+
+This module is responsible for training the Mask_RCNN model, it creates the necessary data generators and config classes used by Mask_RCNN module for triaining.  Also it keeps track of the training progress and ultimately generates the loss vs epoch figures shown below 
+
+### andrew_eval_MASKrcnn.py 
+
+This module loads a pretrained model and writes the Kaggle submission file for that model instance. It also displays some examples of the model's predictions on random test images. 
+
+### Mask_RCNN_app_model.py
+
+This modules is used by the project application to make a prediction on a specific image using a pretrained model, and return either the same image or the labeled image if pneumonia positive along with the bounding box prediction probabilities 
+
 ## Some Initial Thoughts
 
-Pneumonia is an extremely devestating and inpactful disease which affects millions around the world today, so the prospect of using neural networks to help diagnose it was very exciting. However as a machine learning newbie I had much ground to cover before I could tackle such a difficult probem. Therefore I started by building a simple neural network architecture simply to tag a image as pneumonia positive or, which can be found [here](https://github.com/astoycos/Mini_Project2). Ultimatley this simple model architecture did not work very well, stemming from the fact that the patterns in lung opacities which it was trying to identify were very subtle, ultimately requiring a "deeper" architecture. However, it did allow me to get experience with data prepreocessing in python and the basics of Neural Network design. Next I begin researcing the vaious state of the art neuralnetwork architectures exisinting. After reading numerous papers and kernal kaggles I found the Mask_RCNN implementation, created by MIT.  It is unique in the fact that is allows for advanced pixel level segemntation, rather that simple bonunding box creation as see in other architectues such as RCNN and Faster RCNN. Therefore, I decided to progress in the project using it as my primary neural network architecture. To assist with the data preprocessing I also had the idea to segment the lungs out of the chest X - rays before using them to train the model in order to prevent exposing it to an erroneous data. Although I did not end up using [this module](https://github.com/astoycos/ec601-project/tree/master/Lung_Segmentation) it has many other practical uses. 
+Pneumonia is an extremely devestating and inpactful disease which affects millions around the world today, so the prospect of using neural networks to help diagnose it was very exciting. However as a machine learning newbie I had much ground to cover before I could tackle such a difficult probem. Therefore I started by building a simple neural network architecture simply to tag a image as pneumonia positive or, which can be found [here](https://github.com/astoycos/Mini_Project2). This simple model architecture did not work very well, stemming from the fact that the patterns in lung opacities which it was trying to identify were very subtle, ultimately requiring a "deeper" architecture. However, it did allow me to get experience with data prepreocessing in python and the basics of Neural Network design. Next I begin researcing the vaious state of the art neuralnetwork architectures exisinting. After reading numerous papers and kernal kaggles I found the Mask_RCNN implementation, created by MIT.  It is unique in the fact that is allows for advanced pixel level segemntation, rather that simple bonunding box creation as see in other architectues such as RCNN and Faster RCNN. Therefore, I decided to progress in the project using it as my primary neural network architecture. To assist with the data preprocessing I also had the idea to segment the lungs out of the chest X - rays before using them to train the model in order to prevent exposing it to an erroneous data. Although I did not end up using [this module](https://github.com/astoycos/ec601-project/tree/master/Lung_Segmentation) it has many other practical uses. 
 
 ## Early Model train Evaluations 
 
@@ -58,7 +74,7 @@ To begin I ran three training attempts with the preprocessed data (from our lung
 
 Although it is no suprise the pretrained COCO dataset weights helped minimize training loss I was interested to see that the [preprocessed data](https://github.com/astoycos/ec601-project/tree/master/Lung_Segmentation) did much worse. However, after looking though the preprocessed Dataset I began to see some chest xrays with too much segmentation as shown below. 
 
-![segment_fail](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/0d0a219a-f091-430b-a0c4-6a90faa1636c_predict.png)
+![segment_fail](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-12-09%20at%204.30.38%20PM.png)
 
 From the Previous results it was clear that further training and hyperparameter tuning should be compleated using non-segmented data with pretrained coco weights. Also, rather than using just losses to evaluate the accuracy of the model, a formal submission csv was created and submitted in order to acquire an official score from kaggle. This score was calculated based on the IOU(intersection over union) of predicted vs actual bounding boxes. The submission format was as follows, 
 
@@ -82,7 +98,7 @@ Thefore I took a step back and simply boosted the number of epocs to 100 to see 
 ### Final Loss = 1.14 Kaggle score = .13472
 ![L=1.14](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/losses_vs_epocs-%3EL%3D1.14_100epocs.jpg)
 
-## Most current Training efforts  
+## Current Training efforts  
 
 As the end of the semester neared one of the fewe hyperparameters I had yet to touch was batch size, I.E the number of training images the model was exposed to in each epoch.  The original batch size was 200 so to see what would happen I increased it to a wopping 500 and boosted the epochs to 200.  With these dramatic changes I knew there was a high probablity of overfitting, since the model was being exposed to the training data so many times, and that is in fact what happened as shown below. 
 
@@ -118,4 +134,4 @@ See also the list of [contributors](https://github.com/your/project/contributors
   howpublished={\url{https://github.com/matterport/Mask_RCNN}},
 }
 * Tian Xia's Kaggle Kernal -> https://www.kaggle.com/drt2290078/mask-rcnn-sample-starter-code
-* etc
+* 
