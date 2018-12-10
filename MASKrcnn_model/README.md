@@ -53,7 +53,7 @@ This module loads a pretrained model and writes the Kaggle submission file for t
 
 ### Mask_RCNN_app_model.py
 
-This modules is used by the project application to make a prediction on a specific image using a pretrained model, and return either the same image or the labeled image if pneumonia positive along with the bounding box prediction probabilities 
+This module is used by the project application to make a prediction on a specific image using a pretrained model, and return either the same image or the labeled image if pneumonia positive along with the bounding box prediction probabilities
 
 ## Some Initial Thoughts
 
