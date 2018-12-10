@@ -33,4 +33,4 @@ As you can see, the result is getting better after training over 900 iteration u
 
 * **Min Zhou** - minzhou@bu.edu
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/minzhou1003/ec601-project/graphs/contributors) who participated in this project.
