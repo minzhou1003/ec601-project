@@ -7,6 +7,11 @@ This Module is an attempt to complete the [Kaggle RSNA Pneumonia dection challen
 The data used in the project was a library of 26684 chest x_rays provided by the RSNA(Radiological Society of North America), they are provided in the medical standart DICOM format. With and accompying .csv file, the images all tagged as pneumonia positive or negative, where the pneumonia postive images also have bounding box data around the areas of intrest. 
 For this project [Matterport's implemention](https://github.com/matterport/Mask_RCNN) of Mask_RCNN was employed. It is built on Python3, Keras, and Tensorflow and can bused with either a ResNet50 or ResNet101 backbone. 
 
+## Matterport's Mask-RCNN implementation 
+
+![info](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-12-10%20at%205.17.11%20PM.png)
+
+![info2](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-12-10%20at%205.17.20%20PM.png)
 
 ### Prerequisites
 
@@ -61,7 +66,7 @@ Pneumonia is an extremely devestating and inpactful disease which affects millio
 
 ## Early Model train Evaluations 
 
-To begin I ran three training attempts with the preprocessed data (from our lung segmentation module), the regular data, and the data + pretrained COCO weights on the initial layers.  Initially these three tests were run for only 16 epocs using Matterport's Mask_RCNN implementation, a resnet50 backbone,256 * 256 image input, and some standard config settings used by this [Kaggle Kernal](https://www.kaggle.com/hmendonca/mask-rcnn-and-coco-transfer-learning-lb-0-155). These settings allowed me to run relitively quickly on the free external servers provided by kaggle, these initial results are shown below: 
+To begin I ran three training attempts with the preprocessed data (from our lung segmentation module), the regular data, and the data + pretrained COCO weights on the initial layers.  Initially these three tests were run for only 16 epocs using Matterport's Mask_RCNN implementation, a resnet50 backbone,256 * 256 image input, binary cross entropy loss functions and some standard config settings used by this [Kaggle Kernal](https://www.kaggle.com/hmendonca/mask-rcnn-and-coco-transfer-learning-lb-0-155). These settings allowed me to run relitively quickly on the free external servers provided by kaggle because Mask-RCNN would not work on my local machine, these initial results are shown below: 
 
 ### PreProcessed Data (Lung Segmentation) Final Loss = 2.17
 ![pp_data](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/epocs%3D16_LR%3D.00005_.0005_L%3D2.17_PPDATA.jpeg)
