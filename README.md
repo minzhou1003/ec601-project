@@ -32,7 +32,7 @@ them to improve the efficiency and reach of diagnostic services.
 # MVP:
 
  - [x] [Medical image analysis and processing](https://github.com/minzhou1003/ec601-project/blob/master/data-analysis-of-rsna-library.ipynb).</li>
- - [ ] A machine learning model that can predict pneumonia and return the result.
+ - [x] A machine learning model that can predict pneumonia and return the result.
     <ul>
     <li>Pneumonia Positive</li>
     <li>Pneumonia Negative</li>
