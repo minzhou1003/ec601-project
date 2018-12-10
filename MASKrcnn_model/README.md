@@ -7,7 +7,7 @@ This Module is an attempt to complete the [Kaggle RSNA Pneumonia dection challen
 The data used in the project was a library of 26684 chest x_rays provided by the RSNA(Radiological Society of North America), they are provided in the medical standart DICOM format. With and accompying .csv file, the images all tagged as pneumonia positive or negative, where the pneumonia postive images also have bounding box data around the areas of intrest. 
 For this project [Matterport's implemention](https://github.com/matterport/Mask_RCNN) of Mask_RCNN was employed. It is built on Python3, Keras, and Tensorflow and can bused with either a ResNet50 or ResNet101 backbone. 
 
-## Matterport's Mask-RCNN implementation 
+## Matterport's Mask-RCNN implementation overview 
 
 ![info](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-12-10%20at%205.17.11%20PM.png)
 
@@ -66,7 +66,16 @@ Pneumonia is an extremely devestating and inpactful disease which affects millio
 
 ## Early Model train Evaluations 
 
-To begin I ran three training attempts with the preprocessed data (from our lung segmentation module), the regular data, and the data + pretrained COCO weights on the initial layers.  Initially these three tests were run for only 16 epocs using Matterport's Mask_RCNN implementation, a resnet50 backbone,256 * 256 image input, binary cross entropy loss functions and some standard config settings used by this [Kaggle Kernal](https://www.kaggle.com/hmendonca/mask-rcnn-and-coco-transfer-learning-lb-0-155). These settings allowed me to run relitively quickly on the free external servers provided by kaggle because Mask-RCNN would not work on my local machine, these initial results are shown below: 
+To begin I ran three training attempts with the preprocessed data (from our lung segmentation module), the regular data, and the data + pretrained COCO weights on the initial layers.  Initially these three tests were run with the following configuratioons 
+
+* 16 epocs using Matterport's Mask_RCNN implementation 
+* a resnet50 backbone,
+* 256 * 256 image inputformat
+* binary cross entropy loss function 
+* basic image agmentation, geometric transform, blur/shapen, brightness 
+* some standard config settings used by this [Kaggle Kernal](https://www.kaggle.com/hmendonca/mask-rcnn-and-coco-transfer-learning-lb-0-155). 
+
+These settings allowed me to run relitively quickly on the free external servers provided by kaggle because Mask-RCNN was too large to function on my local machine, these initial results are shown below: 
 
 ### PreProcessed Data (Lung Segmentation) Final Loss = 2.17
 ![pp_data](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/epocs%3D16_LR%3D.00005_.0005_L%3D2.17_PPDATA.jpeg)
@@ -81,7 +90,7 @@ Although it is no suprise the pretrained COCO dataset weights helped minimize tr
 
 ![segment_fail](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-12-09%20at%204.30.38%20PM.png)
 
-From the Previous results it was clear that further training and hyperparameter tuning should be compleated using non-segmented data with pretrained coco weights. Also, rather than using just losses to evaluate the accuracy of the model, a formal submission csv was created and submitted in order to acquire an official score from kaggle. This score was calculated based on the IOU(intersection over union) of predicted vs actual bounding boxes. The submission format was as follows, 
+I would have liked to persue this segmentation data preprocessing further, however have simply not had the time. From the Previous results it was clear that further training and hyperparameter tuning should be compleated using non-segmented data with pretrained coco weights. Also, rather than using just losses to evaluate the accuracy of the model, a formal submission csv was created and submitted in order to acquire an official score from kaggle. This score was calculated based on the IOU(intersection over union) of predicted vs actual bounding boxes. The submission format was as follows, 
 
 ![sub.csv](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-10-14%20at%2011.16.50%20PM.png)
 
@@ -90,13 +99,13 @@ with my intial model scoring a pretty dismal official score of .08425.
 
 ## Moving forward in the training process 
 
-As I began ramping up my training efforts, I moved from using Kaggle's free cloud resouces to Boston Univerity's shared computing cluster in order to have access to more computing resouces. While the hardware improved dramatically with the SCC, testing and iteration time also increased, often taking up to 3 days for a model to complete training. For the next few training attempts I did nothing but attempt to finetune the learning rate, I quickly setteled on one that varied in three steps.  For the first 5 epocs a larger LR of .001 along with the help of the pretrained COCO weights helped the model quckly identify features such as the edges and shapes of the lungs, then the LR was changed to .0005 for 5 epochs and finally .0001 for 6 epocs to minimize the viarability in the loss.  Although the official [MASK-RCNN paper](https://arxiv.org/abs/1703.06870) paper suggested a leraning rate of .02, I found that such a rate caused the weights to explode, essentially erasing further results. Also, when a smaller learing rate was tested, convergence time was extremely large requiring a large amount of epocs and usually resulting in overfitting. Following learning rate finetuning, I began boosting the resolution of the input images from 256 X 256 to 512 X 512, thinking that the added resolution may help the model distinguish between radiograph background and lung opacities. I addition I also bosted the # of epochs to 40 to see if the loss decline would continue to be constant. These changes resulted in much better outcomes, with a new lowest loss of 1.39 and updated Kaggle score of .11097. 
+As I began ramping up my training efforts, I moved from using Kaggle's free cloud resouces to Boston Univerity's shared computing cluster in order to have access to more computing resouces. While the hardware improved dramatically with the SCC, testing and iteration time also increased, often taking up to 3 days for a model to complete training. For the next few training attempts I did nothing but attempt to finetune the learning rate. I quickly setteled on one that varied in three steps.  For the first 5 epocs a larger LR of .001 along with the help of the pretrained COCO weights helped the model quckly identify features such as the edges and shapes of the lungs, then the LR was changed to .0005 for 5 epochs and finally .0001 for 6 epocs to minimize the viarability in the loss.  Although the official [MASK-RCNN paper](https://arxiv.org/abs/1703.06870) paper suggested a leraning rate of .02, I found that such a rate caused the weights to explode in the earlier epochs, essentially erasing further results. Also, when a smaller learing rate was tested, convergence time was extremely large requiring a large amount of epocs and usually resulting in overfitting. Following learning rate finetuning, I began boosting the resolution of the input images from 256 X 256 to 512 X 512, thinking that the added resolution may help the model distinguish between radiograph background and lung opacities. I addition I also bosted the # of epochs to 40 to see if the loss decline would continue to be constant. These changes resulted in much better outcomes, with a new lowest loss of 1.39 and updated Kaggle score of .11097. 
 
 ### Final Loss = 1.39 Kaggle score = .11097
 
 ![Loss=1.39](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/epocs%3D40_LR%3D.0005_L%3D1.39.jpeg)
 
-Due to the large accurracy jumps with the above changes, I also exeperimented with changing the backbone neural network architecture to RESNET 101 and the input image size to 1024 X 1024, hoping that increased architecture complexity would help the model identify the minute opacity patterns. However, with both these changes the model complexity increased so much the so that even the powerful SCC hardware coulednt handle the burdon and results were meaningless. 
+Due to the large accurracy jumps with the above changes, I also exeperimented with changing the backbone neural network architecture to RESNET 101 and the input image size to 1024 X 1024, hoping that increased architecture complexity would help the model identify the minute opacity patterns. However, with both these changes the model complexity increased so much the so that even the powerful SCC hardware couldn't handle the harware load and results were meaningless. 
 
 Thefore I took a step back and simply boosted the number of epocs to 100 to see if Loss could be further minmized without overshoot occuring.  This simple change allowed me to again achieve a better result with a Loss of 1.14 and Kaggle score of .13472
 
@@ -118,9 +127,7 @@ Therefore to minimize the overfitting problem I reduced the batch size to 300 an
 
 ## Moving Forward 
 
-This project is a work in progress, as machine learning is an extremely time consuming process each iterations can take weeks
-
-
+This project is a work in progress, as machine learning is an extremely time consuming process each iterations can take weeks however I will attempt to continue fintuning the model to achieve better results. 
 
 ## Authors
 
@@ -130,13 +137,13 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 ## Acknowledgments
 
-@misc{matterport_maskrcnn_2017,
-  title={Mask R-CNN for object detection and instance segmentation on Keras and TensorFlow},
-  author={Waleed Abdulla},
-  year={2017},
-  publisher={Github},
-  journal={GitHub repository},
-  howpublished={\url{https://github.com/matterport/Mask_RCNN}},
-}
+* @misc{matterport_maskrcnn_2017,
+    title={Mask R-CNN for object detection and instance segmentation on Keras and TensorFlow},
+    author={Waleed Abdulla},
+    year={2017},
+    publisher={Github},
+    journal={GitHub repository},
+    howpublished={\url{https://github.com/matterport/Mask_RCNN}},
+    }
 * Tian Xia's Kaggle Kernal -> https://www.kaggle.com/drt2290078/mask-rcnn-sample-starter-code
 * 
