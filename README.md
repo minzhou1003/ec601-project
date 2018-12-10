@@ -5,6 +5,12 @@ Kaggle link: https://www.kaggle.com/c/rsna-pneumonia-detection-challenge
 Author: 
 Min Zhou (minzhou@bu.edu), Andrew Stoycos (astoycos@bu.edu)
 
+[Web App](https://github.com/minzhou1003/ec601-project/tree/master/app)
+
+[Poster]
+
+
+
 Project progress:
 [Trello](https://trello.com/b/tm5CsmTN/sprint-1) 
 
