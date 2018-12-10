@@ -7,7 +7,7 @@ Min Zhou (minzhou@bu.edu), Andrew Stoycos (astoycos@bu.edu)
 
 [Web App](https://github.com/minzhou1003/ec601-project/tree/master/app)
 
-[Poster]
+[Poster](https://github.com/minzhou1003/ec601-project/blob/master/Pneumonia_Poster.pdf)
 
 
 
