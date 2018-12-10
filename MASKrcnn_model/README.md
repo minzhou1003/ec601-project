@@ -98,7 +98,7 @@ Thefore I took a step back and simply boosted the number of epocs to 100 to see 
 ### Final Loss = 1.14 Kaggle score = .13472
 ![L=1.14](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/losses_vs_epocs-%3EL%3D1.14_100epocs.jpg)
 
-## Most current Training efforts  
+## Current Training efforts  
 
 As the end of the semester neared one of the fewe hyperparameters I had yet to touch was batch size, I.E the number of training images the model was exposed to in each epoch.  The original batch size was 200 so to see what would happen I increased it to a wopping 500 and boosted the epochs to 200.  With these dramatic changes I knew there was a high probablity of overfitting, since the model was being exposed to the training data so many times, and that is in fact what happened as shown below. 
 
