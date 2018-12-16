@@ -9,6 +9,8 @@ For this project [Matterport's implemention](https://github.com/matterport/Mask_
 
 ## Matterport's Mask-RCNN implementation overview 
 
+We dicided to use this model due to its high level of complexity, using the ideology that to solve such a complex problem we would need a multilayed neural network Mask_RCNN seemed th eperfect fit. Below is some basic background on the layers that make up the model
+
 ![info](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-12-10%20at%205.17.11%20PM.png)
 
 ![info2](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-12-10%20at%205.17.20%20PM.png)
