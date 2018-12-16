@@ -9,7 +9,7 @@ For this project [Matterport's implemention](https://github.com/matterport/Mask_
 
 ## Matterport's Mask-RCNN implementation overview 
 
-We dicided to use this model due to its high level of complexity, using the ideology that to solve such a complex problem we would need a multilayed neural network Mask_RCNN seemed th eperfect fit. Below is some basic background on the layers that make up the model
+We dicided to use this model due to its high level of complexity, using the ideology that to solve such a complex problem we would need a multilayed neural network Mask_RCNN seemed the perfect fit. Below is some basic background on the layers that make up the model
 
 ![info](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/Screen%20Shot%202018-12-10%20at%205.17.11%20PM.png)
 
@@ -64,7 +64,7 @@ This module is used by the project application to make a prediction on a specifi
 
 ## Some Initial Thoughts
 
-Pneumonia is an extremely devestating and inpactful disease which affects millions around the world today, so the prospect of using neural networks to help diagnose it was very exciting. However as a machine learning newbie I had much ground to cover before I could tackle such a difficult probem. Therefore I started by building a simple neural network architecture simply to tag a image as pneumonia positive or, which can be found [here](https://github.com/astoycos/Mini_Project2). This simple model architecture did not work very well, stemming from the fact that the patterns in lung opacities which it was trying to identify were very subtle, ultimately requiring a "deeper" architecture. However, it did allow me to get experience with data prepreocessing in python and the basics of Neural Network design. Next I begin researcing the vaious state of the art neuralnetwork architectures exisinting. After reading numerous papers and kernal kaggles I found the Mask_RCNN implementation, created by MIT.  It is unique in the fact that is allows for advanced pixel level segemntation, rather that simple bonunding box creation as see in other architectues such as RCNN and Faster RCNN. Therefore, I decided to progress in the project using it as my primary neural network architecture. To assist with the data preprocessing I also had the idea to segment the lungs out of the chest X - rays before using them to train the model in order to prevent exposing it to an erroneous data. Although I did not end up using [this module](https://github.com/astoycos/ec601-project/tree/master/Lung_Segmentation) it has many other practical uses. 
+Pneumonia is an extremely devestating and inpactful disease which affects millions around the world today, so the prospect of using neural networks to help diagnose it was very exciting. However as a machine learning newbie I had much ground to cover before I could tackle such a difficult probem. Therefore I started by building a simple neural network architecture simply to tag a image as pneumonia positive or, which can be found [here](https://github.com/astoycos/Mini_Project2). This simple model architecture did not work very well, stemming from the fact that the patterns in lung opacities which it was trying to identify were very subtle, ultimately requiring a "deeper" architecture. However, it did allow me to get experience with data prepreocessing in python and the basics of Neural Network design. Next I begin researcing the vaious state of the art neural network architectures exisinting. After reading numerous papers and kernal kaggles I found the Mask_RCNN implementation, created by MIT.  It is unique in the fact that is allows for advanced pixel level segemntation, rather that simple bonunding box creation as see in other architectues such as RCNN and Faster RCNN. Therefore, I decided to progress in the project using it as my primary neural network architecture. To assist with the data preprocessing I also had the idea to segment the lungs out of the chest X - rays before using them to train the model in order to prevent exposing it to an erroneous data. Although I did not end up using [this module](https://github.com/astoycos/ec601-project/tree/master/Lung_Segmentation) it has many other practical uses. 
 
 ## Early Model train Evaluations 
 
@@ -126,7 +126,6 @@ Therefore to minimize the overfitting problem I reduced the batch size to 300 an
 
 ![best](https://raw.githubusercontent.com/minzhou1003/ec601-project/master/MASKrcnn_model/Data/losses_vs_epocs-%3E.13906.png)
 
-
 ## Moving Forward 
 
 This project is a work in progress, as machine learning is an extremely time consuming process each iterations can take weeks however I will attempt to continue fintuning the model to achieve better results. 
@@ -148,4 +147,3 @@ See also the list of [contributors](https://github.com/your/project/contributors
     howpublished={\url{https://github.com/matterport/Mask_RCNN}},
     }
 * Tian Xia's Kaggle Kernal -> https://www.kaggle.com/drt2290078/mask-rcnn-sample-starter-code
-* 
