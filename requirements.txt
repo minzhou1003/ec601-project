@@ -10,3 +10,4 @@ pydicom
 requests
 gitpython
 subprocess.run
+tensorflow 

@@ -1,6 +1,6 @@
 classes= 1
-train  = /Users/minzhou/Desktop/EC601/ec601-project/yolo_model/metadata/tr_list.txt
-valid  = /Users/minzhou/Desktop/EC601/ec601-project/yolo_model/metadata/val_list.txt
-names  = /Users/minzhou/Desktop/EC601/ec601-project/yolo_model/cfg/rsna.names
-backup = /Users/minzhou/Desktop/EC601/ec601-project/yolo_model/backup
+train  = /Users/andrewstoycos/Documents/Classes_Fall_2018/EC601/MainProject/ec601-project/yolo_model/metadata/tr_list.txt
+valid  = /Users/andrewstoycos/Documents/Classes_Fall_2018/EC601/MainProject/ec601-project/yolo_model/metadata/val_list.txt
+names  = /Users/andrewstoycos/Documents/Classes_Fall_2018/EC601/MainProject/ec601-project/yolo_model/cfg/rsna.names
+backup = /Users/andrewstoycos/Documents/Classes_Fall_2018/EC601/MainProject/ec601-project/yolo_model/backup
     

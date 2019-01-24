@@ -15,7 +15,7 @@ import pickle
 import tensorflow
 import keras.backend
 
-ROOTDIRECTORY = '/usr3/graduate/astoycos/A1_Pneumonia_Model/'
+ROOTDIRECTORY = os.getcwd()
 
 os.chdir('Mask_RCNN')
 
@@ -112,7 +112,7 @@ model = modellib.MaskRCNN(mode='inference',
                           model_dir=ROOTDIRECTORY)
 
 # Load trained weights (fill in path to trained weights here)
-assert model_path != "" "/Users/andrewstoycos/Documents/Classes_Fall_2018/EC601/MainProject/ec601-project/MASKrcnn_model/mask_rcnn_pneumonia_0099.h5"
+model_path = "mask_rcnn_pneumonia_0099.h5"
 print("Loading weights from ", model_path)
 model.load_weights(model_path, by_name=True)
 
@@ -124,7 +124,7 @@ def get_colors_for_class_ids(class_ids):
             colors.append((.941, .204, .204))
     return colors
 
-test_image_fps = get_dicom_fps(ROOTDIRECTORY + 'test_jpegs/')
+test_image_fps = get_dicom_fps(sys.argv[1])
 print(test_image_fps)
 
 #make predictions on specific images supplied by image_fp and if pneumonia
@@ -181,11 +181,11 @@ def predict(image_fp, min_conf):
         #plt.figure()
 
         print(image_id)
-        cv2.imwrite( os.path.splitext(image_id)[0] + '_labeled.jpg' ,image) 
+        cv2.imwrite( ROOTDIRECTORY + "test_jpegs/" + os.path.splitext(image_id)[0] + '_labeled.jpg' ,image) 
         #plt.imshow(image, cmap=plt.cm.gist_gray)
         #plt.show()
         
-predict(test_image_fps,.0005)
+predict(test_image_fps,sys.argv[2])
 
 
 

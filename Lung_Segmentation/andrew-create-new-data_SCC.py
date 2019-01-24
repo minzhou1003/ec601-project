@@ -216,5 +216,6 @@ for filename in tqdm(os.listdir(SEG_TRAIN_FINAL)):
     plt.imsave(SEG_TRAIN_FINAL + filename ,mask, cmap=plt.cm.bone)
 
 
-
+shutil.rmtree(SEG_TRAIN_DIRECTORY)
+shutil.rmtree(SEG_TEST_DIRECTORY)
 
